@@ -1,8 +1,27 @@
-import React from 'react';
-import servicesChecklistData from './data/services_checklist.json';
-import acccessibilityChecklistData from './data/accessibility_checklist.json';
+import React, {useState, useEffect} from 'react';
+//import servicesChecklistData from './data/services_checklist.json';
+//import acccessibilityChecklistData from './data/accessibility_checklist.json';
 
 const HotelInfo = () => {
+
+    const [serviceChecklistData, setServiceChecklistData] = useState([]);
+    const [acccessibilityChecklistData, setAcccessibilityChecklistData] = useState([]);
+
+    const getData = async(url, setDataCallback) => {
+        // Query the API Gateway
+        const resp = await fetch(url);
+        let jsonData = await resp.json();
+
+        // Assigning the JSON Data to the stateful variable
+        setDataCallback(jsonData);
+    }
+
+    useEffect(() => {
+        // Get the services checklist from the API
+        getData('https://3fitcphz81.execute-api.us-west-2.amazonaws.com/Production/AccessibilityChecklist', setServiceChecklistData)        
+        getData('https://3fitcphz81.execute-api.us-west-2.amazonaws.com/Production/ServiceChecklist', setAcccessibilityChecklistData);
+    }, []);
+
     return(
         <div className="scene" id="hotelinfo">
             <article className="heading">
@@ -25,7 +44,7 @@ const HotelInfo = () => {
                     <p>Our services and amenities are designed to make your travel easy, your stay comfortable, and your experience one-of-a-kind.</p>
                     <ul>
                         {
-                            servicesChecklistData.map(
+                            serviceChecklistData.map(
                                 (service) => <li>{service.item}</li> 
                             )
                         }
