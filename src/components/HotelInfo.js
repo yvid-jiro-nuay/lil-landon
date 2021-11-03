@@ -20,9 +20,9 @@ const HotelInfo = () => {
 
     useEffect(() => {
         // Get the services checklist from the API
-        getData('https://u86zly1qok.execute-api.ap-southeast-1.amazonaws.com/Production/lil-landon-services', setServiceChecklistData)        
-        getData('https://u86zly1qok.execute-api.ap-southeast-1.amazonaws.com/Production/lil-landon-accessibility', setAcccessibilityChecklistData);
-        getData('https://u86zly1qok.execute-api.ap-southeast-1.amazonaws.com/Production/lil-landon-arrival', setArrivalChecklistData);
+        getData('https://eulczpw3vj.execute-api.ap-southeast-1.amazonaws.com/Production/lil-landon-services', setServiceChecklistData)        
+        getData('https://eulczpw3vj.execute-api.ap-southeast-1.amazonaws.com/Production/lil-landon-accessibility', setAcccessibilityChecklistData);
+        getData('https://eulczpw3vj.execute-api.ap-southeast-1.amazonaws.com/Production/lil-landon-arrival', setArrivalChecklistData);
     }, []);
 
     return(
