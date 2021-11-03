@@ -2,7 +2,7 @@ var AWS = require("aws-sdk");
 var fs = require('fs');
 
 AWS.config.update({
-  region: "us-west-2"
+  region: "ap-southeast-1"
 });
 
 console.log("Writing entries to Accessibilities table.");
@@ -13,7 +13,7 @@ var accessibilitiesData =
 
 accessibilitiesData.forEach(function(accessibililty) {
   var params = {
-    TableName: "AccessibilityChecklist",
+    TableName: "lil-landon-accessibility",
     Item: {
       "item": accessibililty.item
     }

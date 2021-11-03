@@ -1,13 +1,13 @@
 var AWS = require("aws-sdk");
 
 AWS.config.update({
-  region: "us-west-2"
+  region: "ap-southeast-1"
 });
 
 var dynamodb = new AWS.DynamoDB();
 
 var params = {
-  TableName: "GalleryImages",
+  TableName: "lil-landon-gallery",
   KeySchema: [
     // Partition Key
     { AttributeName: "src", KeyType: "HASH" },

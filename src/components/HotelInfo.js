@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+//import arrivalChecklistData from './data/arrival_checklist.json';
 //import servicesChecklistData from './data/services_checklist.json';
 //import acccessibilityChecklistData from './data/accessibility_checklist.json';
 
@@ -6,6 +7,7 @@ const HotelInfo = () => {
 
     const [serviceChecklistData, setServiceChecklistData] = useState([]);
     const [acccessibilityChecklistData, setAcccessibilityChecklistData] = useState([]);
+    const [arrivalChecklistData, setArrivalChecklistData] = useState([]);
 
     const getData = async(url, setDataCallback) => {
         // Query the API Gateway
@@ -18,25 +20,26 @@ const HotelInfo = () => {
 
     useEffect(() => {
         // Get the services checklist from the API
-        getData('https://3fitcphz81.execute-api.us-west-2.amazonaws.com/Production/AccessibilityChecklist', setServiceChecklistData)        
-        getData('https://3fitcphz81.execute-api.us-west-2.amazonaws.com/Production/ServiceChecklist', setAcccessibilityChecklistData);
+        getData('https://u86zly1qok.execute-api.ap-southeast-1.amazonaws.com/Production/lil-landon-services', setServiceChecklistData)        
+        getData('https://u86zly1qok.execute-api.ap-southeast-1.amazonaws.com/Production/lil-landon-accessibility', setAcccessibilityChecklistData);
+        getData('https://u86zly1qok.execute-api.ap-southeast-1.amazonaws.com/Production/lil-landon-arrival', setArrivalChecklistData);
     }, []);
 
     return(
         <div className="scene" id="hotelinfo">
             <article className="heading">
-                <h1>Essential Info</h1>
+                <h1>Essential Information</h1>
             </article>
             <article id="usefulinfo">
                 <section id="arrivalinfo">
                     <h2>Arrival Information</h2>
                     <ul>
-                        <li><strong>Check-in:</strong> 3:00 PM</li>
-                        <li><strong>Check-out:</strong> 11:00 AM</li>
-                        <li><strong>Parking:</strong> Self-parking in the underground garage is ￡15 per day and valet-parking is ￡50 per day.</li>
-                        <li><strong>Airport Shuttle:</strong> Our complimentary airport shuttles leave every hour on the hour, and make trips to Heathrow and Gatwick airports.</li>
-                        <li><strong>Trains:</strong> The nearest Underground station is at Leicester Square.</li>
-                        <li><strong>Pet Policy:</strong> Pets of all sizes and types are allowed in designated pet rooms, and the specified common areas. Service animals are allowed everywhere.</li>
+                        {
+                            arrivalChecklistData.map(
+                                (arrival)=>
+                                    <li><strong>{arrival.item}:</strong> {arrival.detail}</li>
+                            )
+                        }
                     </ul>
                 </section>
                 <section className="checklist" id="services">
@@ -56,7 +59,7 @@ const HotelInfo = () => {
                     <ul>
                         {
                             acccessibilityChecklistData.map(
-                                (service) => <li>{service.item}</li>
+                                (accessibility) => <li>{accessibility.item}</li>
                             )
                         }
                         

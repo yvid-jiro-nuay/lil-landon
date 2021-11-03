@@ -2,10 +2,10 @@ var AWS = require("aws-sdk");
 var fs = require('fs');
 
 AWS.config.update({
-  region: "us-west-2"
+  region: "ap-southeast-1"
 });
 
-console.log("Writing entries to GalleryImages table.");
+console.log("Writing entries to Gallery table.");
 
 var dynamodb = new AWS.DynamoDB.DocumentClient();
 var galleryImagesData = 
@@ -17,7 +17,7 @@ galleryImagesData.forEach(function(galleryImage) {
     className = "no_class";
 
   var params = {
-    TableName: "GalleryImages",
+    TableName: "lil-landon-gallery",
     Item: {
       "src": galleryImage.src,
       "alt": galleryImage.alt,
@@ -27,7 +27,7 @@ galleryImagesData.forEach(function(galleryImage) {
 
   dynamodb.put(params, function(err, data) {
     if (err)
-      console.error("Unable to load data into table for gallery images",
+      console.error("Unable to load data into table for gallery table.",
                     galleryImage.src, ". Error: ", JSON.stringify(err, null, 2))
     else
       console.log("Added", galleryImage.src, "to table.")

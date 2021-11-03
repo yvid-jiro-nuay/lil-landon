@@ -1,13 +1,13 @@
 var AWS = require("aws-sdk");
 
 AWS.config.update({
-  region: "us-west-2"
+  region: "ap-southeast-1"
 });
 
 var dynamodb = new AWS.DynamoDB();
 
 var params = {
-  TableName: "AccessibilityChecklist",
+  TableName: "lil-landon-accessibility",
   KeySchema: [
     // Partition Key
     { AttributeName: "item", KeyType: "HASH" } 

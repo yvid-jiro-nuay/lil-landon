@@ -7,14 +7,29 @@ AWS.config.update({
 var dynamodb = new AWS.DynamoDB();
 
 var params = {
-  TableName: "lil-landon-services",
+  TableName: "lil-landon-arrival",
   KeySchema: [
     // Partition Key
-    { AttributeName: "item", KeyType: "HASH" }
+    { AttributeName: "item", KeyType: "HASH" },
+    // Sort Keys
+    { AttributeName: "detail", KeyType: "RANGE"}  
   ],
   AttributeDefinitions: [
     { AttributeName: "item", AttributeType: "S" },
+    { AttributeName: "detail", AttributeType: "S" }
   ],
+  LocalSecondaryIndexes: [
+    {
+      IndexName: "ClassIndex",
+      KeySchema: [
+        { AttributeName: "item", KeyType: "HASH" },
+        { AttributeName: "detail", KeyType: "RANGE" }
+      ],
+      Projection: {
+        ProjectionType: "KEYS_ONLY"
+      }
+    }
+  ], 
   ProvisionedThroughput: {
     ReadCapacityUnits: 10,
     WriteCapacityUnits: 10
